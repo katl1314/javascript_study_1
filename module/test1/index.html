@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="module" src="./foo.mjs"></script>
+    <script type="module" src="./bar.mjs"></script>
+    <!-- 
+        ESM은 독자적인 모듈 스코프를 갖는다. 다만, 일반 자바스크립트 파일은 script태그로 분리하여도
+        모듈 스코프를 갖기 않기 때문에 기존에 선언된 전역변수 x를 덮어 씌운다.
+        foo.js에 선언된 전역변수 x는 200, bar.js에 선언된 전역변수 x는 10이므로 bar.js가 foo.js보다
+        나중에 불러오기 때문에 bar.js의 x값으로 덮어씌우게 된다.
+
+        ESM을 사용하기 위해서 script태그의 어트리뷰트 type에  module을 명시하자.
+        그러면 각 모듈별로 독자적인 스코프를 갖기 때문에 덮어 씌우지 않는다.
+    -->
+</head>
+<body>
+    <input type="text">
+</body>
+</html>

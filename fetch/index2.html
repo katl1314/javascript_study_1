@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const url = 'https://jsonplaceholder.typicode.com';
+        /*
+            Promise : ES6이후 정의
+            new 연산자를 이용하여 생성자 함수로 호출한다.
+            resolve, reject함수를 인자로 전달받는다.
+
+            물론 Promise.prototype.then을 이용하여 fulfilled, rejected상태 모두 검사할 수 있다.
+            다만 then-catch를 활용하여 서로 불리시키는 것이 가독성에 좋다!
+        */
+        function get(url2) {
+            const promise = new Promise((resolve, reject) => {
+                var xmlHttpRequest = new XMLHttpRequest();
+
+                xmlHttpRequest.open('GET', url2);
+
+                xmlHttpRequest.send();
+
+                xmlHttpRequest.onload = function() {
+                    if (this.status === 200 || this.status === 201) {
+                        resolve(JSON.parse(this.response)); // Promise.then의 콜백함수로 전달. => 성공 처리
+                    } else {
+                        reject(this);   // Promise.catch의 콜백함수로 전달. => 에러 처리
+                    }
+                }
+            });
+            return promise;
+        }
+
+        get(`${url}/posts/1`)
+                // Promise.prototype.then
+                // resolve함수를 호출했을 때 동작하는 함수
+                // 첫번째 인자 : resolve함수상태일 때 인자를 인수로 받는다.
+                // 두번째 인자 : reject함수상태일 때 에러를 인수로 받는다. (비권장)
+                .then(({userId})=> get(`${url}/users/${userId}`))   // 프로미스 체이닝
+                .then(({id, name, phone, username, website, email, company, address}) => {
+                    // 프로미스 체이닝
+                    console.log(id, name, phone, username, website, email, company, address);
+                })
+                // Promise.prototype.catch
+                // 프로미스 state가 rejected상태일 때 호출합니다.
+                .catch(({status}) => {
+                    console.log(`응답 상태 : ${status}`);
+                });
+    </script>
+</body>
+</html>

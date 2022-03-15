@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function get(url, callback) {
+            var xhr = new XMLHttpRequest();
+
+            // HTTP 요청을 초기화, (method, get)
+            xhr.open('GET', url);
+
+            xhr.send(); // HTTP 요청을 서버에 전달
+
+            // HTTP 요청에 대한 응답시 호출함.
+            // onload함수는 비동기 함수, 즉 get함수는 비동기 함수이다.
+            xhr.onload = function() {
+                if (this.status === 200 | this.status === 201) {
+                    // 비동기 함수는 상위 스코프의 변수에 할당, 외부로 반출이 불가능하기 때문에
+                    // callback함수를 이용하여 처리해야 한다.
+                    // return JSON.parse(this.response);
+                    callback(this.response);
+                } else { 
+                    // return false;
+                    callback(this.status);
+                }
+            }
+        }
+        
+        // const failCallback = status => console.error(`error : 응답 상태값 : ${status}`);
+        // 콜백 한무 지옥.... => 가독성을 나쁘게 함.
+        get('https://jsonplaceholder.typicode.com/posts/1', (msg) => {
+            console.log('1', JSON.parse(msg));
+            get('https://jsonplaceholder.typicode.com/posts/2', (msg) => {
+                console.log('2', JSON.parse(msg));
+                get('https://jsonplaceholder.typicode.com/posts/3', (msg) => {
+                    console.log('3', JSON.parse(msg));
+                    get('https://jsonplaceholder.typicode.com/posts/4', (msg) => {
+                        console.log('4', JSON.parse(msg));
+            
+                    });
+                });
+            });
+        });
+        // get함수의 경우 비동기 함수이다.
+        // 비동기 함수는 함수 내부에 비동기로 동작하는 코드를 포함하면 해당됨.
+        // 비동기로 동작하는 코드에서 외부로 반환, 상위 스코프의 변수를 할당하면 기대하는 대로 동작하지 않는다.
+
+    </script>    
+</body>
+</html>
