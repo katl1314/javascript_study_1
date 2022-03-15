@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text">
+    <div class="msg"></div>
+    <script>
+        var $input = document.querySelector('input');
+        var $msg = document.querySelector('.msg');
+        /* 
+            debounce(디바운스) : 일정시간이 경과한 이후에 이벤트 핸들러가 한번 호출된다. 
+            짧은 시간이 연속된 이벤트가 호출시 이벤트 핸들러가 호출되지 않고, 일정 시간이 지난 후
+            이벤트 핸들러가 실행됨.
+        */
+        const debounce = (callback, delay) => {
+            // debounce함수는 timerId를 기억하는 클로저를 반환한다.
+            var timerId = null;
+            return event => {
+                // delay가 경과하기 이전에 이벤트가 발생하면 이전 타이머를 취소하고, 새로운 타이머로 재설정한다.
+                // 따라서 delay보다 짧은 간격으로 이벤트가 발생하게되면 callback은 호출하지 않느다.
+                timerId && clearTimeout(timerId); // timerId가 있으면 타이머를 취소하고 새로 생성한다.
+                timerId = setTimeout(callback, delay, event);
+            }
+        }
+
+        $input.oninput = debounce((event) => {
+            $msg.textContent = `'${event.target.value}'가 입력되었다.`;
+        }, 1000);
+    </script>
+</body>
+</html>

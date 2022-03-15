@@ -1,0 +1,21 @@
+{
+  "scripts": {
+    "start": "json-server --watch ./json-server-exam/db.json --port 5000"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.5",
+    "json-server": "^0.17.0"
+  },
+  "name": "js",
+  "version": "1.0.0",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "xmlhttprequest": "^1.8.0"
+  }
+}

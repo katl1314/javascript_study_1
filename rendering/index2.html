@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <!--
+        DOM : HTML의 문서 구조 및 제어 할 수 있는 API를 제공하는 트리 자료구조 => HTML 파싱시 결과물
+        1. 노드
+         html요소는 HTML문서를 구성하는 개별적인 요소
+        <div class="greeting">Hello</div>
+        - <div : 시작 태그
+        - class : 어트리뷰트 이름
+        - "greeting" : 어트리뷰터 값
+        - Hello : 콘텐츠
+        - </div> : 종료 태그
+    --> 
+    <ul>    <!-- 시작 태그 -->
+        <!--
+            <li : 시작 태그
+            id : 어트리뷰트 이름
+            apple : 어트리뷰트 값
+            Apple : 콘텐츠
+            </li> : 종료 태그
+        -->
+        <li id="apple">Apple</li> 
+        <li id="banana">Banana</li>
+        <li id="orange">Orange</li>
+    </ul>   <!-- 종료 태그 -->
+    <ul id="fruit">
+        <li id="apple">Apple</li> 
+        <li id="banana">Banana</li>
+        <li id="orange">Orange</li>
+    </ul>
+    <script src="./js/index.js"></script>
+    <!--
+        document : 문서 노드(Document Node) => DOM트리의 최상위에 존재하는 루트 노드 document 객체를 가리킴. (window.document)
+        element(li, ul, input...) : 요소 노드(Elements Node)
+        attribute(class='aa' id='qq') : 어트리뷰트 노드(Attribute Node)
+        Content : 텍스트(콘텐츠) 노드(Text Node)
+    -->
+    <script>
+        const colors = ['red', 'blue', 'green'];
+        /*
+            HTML의 li태그의 요소를 가져올 때 사용하는 메서드
+            documents.getElementsByTagName(tagName);    => HTMLCollection
+        */
+        const $elements = document.getElementsByTagName('li');
+        [...$elements].forEach(function(element, index, elements) {
+            element.style.color = colors[index];
+        });
+        
+        /**
+            HTML의 모든 요소를 가져오기 위해서는 함수의 인자로 '*'을 사용한다.
+        */
+        const allHtmlElements = document.getElementsByTagName('*');
+        console.log('HTML의 모든 요소', allHtmlElements);
+
+        /*
+            ul#fruit요소의 자손 노드 중에서 태그이름이 li인 요소 노드를 모두 반환한다.
+        */
+        const fruitElement = document.getElementById('fruit'); // id가 fruit인 요소 노드 반환
+
+        const inFruitLiElements = fruitElement.getElementsByTagName('li');  // ul#fruit노드 내부 li태그 모두 반환
+        console.log('inFruitLiElements', inFruitLiElements);
+
+    </script>
+</body>
+</html>

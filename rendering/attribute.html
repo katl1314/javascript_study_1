@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <input type="text" id="user" value="ungmo2">
+</head>
+<body>
+    <script>
+        var $user = document.getElementById('user');
+        // console.log($user.attributes);
+
+        var { attributes } = $user
+        console.log(attributes);
+
+        // 어트리뷰트 값 반환
+        console.log(attributes.id.value, attributes.id.name);           // user, id
+        console.log(attributes.type.value, attributes.type.name);       // text, type
+        console.log(attributes.value.value, attributes.value.name);     // ungmo2, value
+
+        // HTML요소에 여러개의 어트리뷰트를 가질 수 있다.
+        // 어트리뷰트 이름 = 어트리뷰트 값
+
+        // HTML 어트리뷰트 제어
+        // Element.prototype.setAttribute(attrName, attrValue), Element.prototype.getAttribute(attrName)
+        // HTML요소의 어트리뷰트를 설정 및 변경하거나 어트리뷰트를 반환할 수 있음.
+        // attribute 프로퍼티를 통하지않고 attribute를 접근할 수 있다.
+        // $user.attributes.value = 'Jame';        // arguments프로퍼티를 접근하여 변경한다고 해서 실제로 변경되지 않는다.
+        $user.setAttribute('value', 'foo'); // input#user의 어트리뷰트인 value를 'ungmo2'에서 'foo'으로 변경한다.
+
+        console.log('input#foo의 value값 ----- ', $user.getAttribute('value'));
+
+        /*
+            Element.prototype.hasAttributes(attrName) : HTML요소에 어트리뷰트가 존재하는지 확인한다. => Boolean
+            Element.prototype.removeAttribute(attrName): HTML요소의 어트리뷰트를 제거한다.
+        */
+
+        console.log(typeof $user.hasAttribute('value'));
+
+        // HTML요소 input$user의 value어트리뷰트가 있는지 확인한다.
+        /* if ($user.hasAttribute('value')) {
+            // HTML요소의 value어트리뷰트를 제거한다.
+            $user.removeAttribute('value'); 
+        } */
+
+        /*
+            요소 노드 객체에는 HTML 어트리뷰트에 대응하는 DOM어트리뷰트가 존재한다.
+            DOM어트리뷰트는 HTML 어트리뷰트의 값을 초기값으로 가지고 있다.
+            HTML 어트리뷰트 값 => DOM 어트리뷰트 초기값
+            DOM어트리뷰트는 setter, getter(접근자 프로퍼티)로 구성되어 있기 때문에 변경 및 참조가 가능하다.
+
+            HTML어트리뷰트는 요소 노드의 초기
+        */
+
+        console.log($user.value);   // DOM어트리뷰트로 getter를 이용하여 참조한 값을 반환한다.
+
+        // $user.value = 'foo';        // DOM어트리뷰트 setter를 이용하여 값을 변경한다.
+
+        /*
+            요소 노드는 상태를 가지고 있다.
+            1. input요소는 사용자가 입력한 값을 상태로 가지고 있고
+            2. checkbox요소는 체크 여부를 상태로 가지고 있다.
+
+            이처럼 요소 노드는 2개의 상태, 초기상태와 최신 상태를 가지고있어야 하며, 초기상태는 어트리뷰트 노드가 관리, 최신 상태는 DOM 프로퍼티가 관리한다.
+
+            어트리뷰트 노드 : 어트리뷰트 초기값을 관리 (초기 상태)
+            DOM 프로퍼티 : 어트리뷰트 최신값을 관리함. (최신 상태)
+
+            어트리뷰트 노드가 관리하는 초기 상태를 참조 및 변경시 setAttribute/getAttribute를 이용.
+        */
+    </script>
+</body>
+</html>

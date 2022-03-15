@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <div id="foo">
+        <p>테스트</p>
+    </div>    
+    <script>
+        // DOM객체 내 div#foo노드를 탐색한다.
+        var $div = document.getElementById('foo');
+
+        // ul태그를 생성한다.
+        var $ul = document.createElement('ul');
+
+        // li태그를 생성한다.
+        var $li = document.createElement('li');
+
+        // ul태그의 class를 fruits으로 설정한다.
+        $ul.setAttribute('class', 'fruits');
+
+        // li태그의 텍스트를 Apple으로 설정한다.
+        $li.textContent = 'Apple';
+
+        // li태그의 class를 apple으로 설정한다.
+        $li.setAttribute('class', 'apple');
+
+        // ul태그의 자식 노드로 li노드를 추가한다.
+        $ul.appendChild($li);
+
+        // div태그의 자식 노드로 ul노드를 추가한다.
+        $div.appendChild($ul);
+        
+        /*
+            Element.prototype.createElement(tagName) 메서드는 요소 노드를 추가하고 반환한다. (요소 노드 추가)
+            메서드의 인자로 tagName을 입력한다.
+            ex) document.createElement('div') or document.createElement('ul');
+
+            Element.prototype.createTextNode(string) 메서드는 텍스트 노드를 생성하고 반환한다.
+            메서드 인자로 텍스트로 표시할 문자열을 전달받는다.
+        */
+
+        var textNode = document.createTextNode('TEXT NODE');    // 텍스트 노드 생성 및 반환
+
+        var $li2 = document.createElement('li');                // 요소 노드 'li' 생성 후 반환
+
+        $li2.appendChild(textNode);                             // 요소 노드 'li'의 자식 텍스트 노드로 추가한다.
+
+        $ul.appendChild($li2);                                  // 요소 노드 'ul'의 자식 요소 노드 'li'를 추가한다.
+
+        // Element.prototype.createTextNode를 사용할 수도 있고 textContent를 이용하여 텍스트 노드를 생성할 수 있음.
+    </script>
+</body>
+</html>

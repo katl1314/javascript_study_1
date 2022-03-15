@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text">
+    <div class="msg"></div>
+    <script>
+        var $input = document.querySelector('input');
+        var $msg = document.querySelector('.msg');
+        /* 
+            debounce(디바운스) : 일정시간이 경과한 이후에 이벤트 핸들러가 한번 호출된다. 
+            짧은 시간이 연속된 이벤트가 호출시 이벤트 핸들러가 호출되지 않고, 일정 시간이 지난 후
+            이벤트 핸들러가 실행됨.
+
+            throttle(스로틀) : 짧은 시간에 연속된 이벤트가 발생하더라도, 일정 시간 간격으로
+            이벤트 핸들러가 실행됨. (호출 주기)
+        */
+        /* const debounce = (callback, delay) => {
+            var timerId = null;
+            return event => {
+                timerId && clearTimeout(timerId);
+                timerId = setTimeout(callback, delay, event);
+            }
+        } */
+
+        const throttle = (callback, delay) => {
+            let timerId = null;
+            return event => {
+                if (timerId) return;
+                timerId = setTimeout((event) => {
+                    callback(event);
+                    timerId = null;
+                }, delay, event);
+            };
+        }
+
+        $input.oninput = throttle((event) => {
+            $msg.textContent = `'${event.target.value}'가 입력되었다.`;
+        }, 1000);
+    </script>
+</body>
+</html>

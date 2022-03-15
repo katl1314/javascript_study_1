@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="fruits">
+        <li class="apple">Apple</li>
+        <li class="banana">Banana</li>
+        <li class="orange">Orange</li>
+    </ul>        
+    <script>
+        const $fruits = document.getElementById('fruits');
+
+        const { firstChild, lastChild } = $fruits;
+        console.log('firstChild', firstChild);
+        console.log('lastChild', lastChild);
+
+        const { firstElementChild, lastElementChild } = $fruits;
+        console.log('firstElementChild', firstElementChild);
+        console.log('lastElementChild', lastElementChild);
+
+        const { nextElementSibling, nextSibling } = firstElementChild;
+        console.log('nextElementSibling', nextElementSibling);
+        console.log('nextSibling', nextSibling);
+
+        const { previousSibling, previousElementSibling }  = lastElementChild;
+        console.log('previousElementSibling', previousElementSibling);
+        console.log('previousSibling', previousSibling);
+
+        /*
+            노드 정보 취득
+            Node.prototype.nodeType : 노드 객체 종류, 노드 타입을 나타내는 상수를 반환, 노드 타입 상수
+            는 Node에 정의함.
+             - Node.ELEMENT_NODE : 요소 노드 타입을 나타냄 1
+             - Node.TEXT_NODE : 텍스트 노드 타입을 나타냄 3
+             - Node.DOCUMENT_NODE : 문서 노드 타입을 나타냄 9
+            Node.prototype.nodeName : 노드 이름을 문자열로 반환
+             - 요소 노드 : 대문자 문자열로 반환('LI', 'UL', )
+             - 텍스트 노드 : '#text'를 반환
+             - 문서 노드 : '#document'를 반환
+        */
+
+        console.log($fruits.nodeType, $fruits.nodeName.toLowerCase());
+        console.log(document.nodeName, document.nodeType);  // '#document', 9
+        
+        const textEl = firstChild;
+        console.log(textEl, textEl.nodeName, textEl.nodeType);  // '#text', 3
+        
+    </script>
+</body>
+</html>

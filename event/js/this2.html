@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">0</button>
+    <script>
+        class Counter {
+            constructor() {
+                this.$button = document.querySelector('#btn');
+                this.count = 0;
+                // increase 메서드를 button 클릭 이벤트 핸들러로 등록
+                // this.$button.onclick = this.increase;    // increase메서드의 this -> this.$button
+                this.$button.addEventListener('click', this.increase.bind(this));
+                this.$button.onclick = this.increase2;
+            }
+
+            // Counter클래스의 프로토타입 메서드
+            increase() {
+                // 이벤트 핸들러 increase 내부의 this는 button(DOM요소)와 같다.
+                // increase메서드의 this는 클래스의 인스턴스를 가리키지 않는다.
+                // DOM 프로퍼티 onclick 이벤트 핸들러를 button에 등록했기 때문.
+                // 즉 bind를 이용하여 인스턴스를 increase에 전달해야 한다.
+                this.$button.textContent = `${++this.count}`;
+                console.log('프로토타입 메서드', this);
+            }
+
+            // Counter클래스의 인스턴스 메서드
+            // 화살표 함수를 이용하여 this를 상위 스코프 Counter클래스의 this를 가리키게 한다.
+            increase2 = () => {
+                console.log('인스턴스 메서드', this);
+                this.$button.textContent = `${++this.count}`;
+            }
+        }
+
+        var counter = new Counter();
+        
+    </script>
+</body>
+</html>

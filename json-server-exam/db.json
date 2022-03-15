@@ -1,0 +1,29 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "content": "HTML5",
+      "complete": true
+    },
+    {
+      "id": 2,
+      "content": "CSS3",
+      "complete": false
+    },
+    {
+      "id": 3,
+      "content": "Javascript",
+      "complete": true
+    },
+    {
+      "id": 4,
+      "content": "Typescript",
+      "complete": false
+    },
+    {
+      "id": 5,
+      "content": "React",
+      "complete": false
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="fruits"></ul>    
+    <script>
+        /*
+            3개의 요소 노드를 생성하여 DOM에 3번 추가하므로 DOM이 3번 변경된다.
+            즉 리페인트, 리플로우가 3번 실행됨.
+            성능 및 높은 비용이 발생하지 않도록 최소한의 실행을 해야한다. => 비효율적
+
+            컨테이너 요소를 이용하여 이러한 문제를 회피하여보자.
+        */
+        /* ['Apple', 'Banana', 'Orange'].forEach((value, index) => {
+            var $li = document.createElement('li');
+            // $li.textContent = value;
+            var textContent = document.createTextNode(value);
+            $li.appendChild(textContent);
+            document.getElementById('fruits').appendChild($li);
+        }); */
+
+        var $ul = document.getElementById('fruits');
+        
+        var $div = document.createElement('div');
+
+        ['Apple', 'Banana', 'Orange'].forEach((value, index) => {
+            var $li = document.createElement('li');
+            // $li.textContent = value;
+            var textContent = document.createTextNode(value);
+            $li.appendChild(textContent);
+            /* document.getElementById('fruits').appendChild($li); */
+            $div.appendChild($li);
+        });
+
+        $ul.appendChild($div);
+    </script>
+</body>
+</html>

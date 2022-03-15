@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="fruits"></ul>
+    <script>
+        var $fruits = document.getElementById('fruits');
+
+        // DocumentFragment 노드 생성
+        var df = document.createDocumentFragment();
+        
+        ['Apple', 'Banana', 'Orange'].forEach(function(value, index, array) {
+            // 요소 노드 생성
+            var $li = document.createElement('li');
+
+            // 텍스트 노드 생성
+            var textContent = document.createTextNode(value);
+
+            // $li요소 노드 자식 노드로 텍스트 노드 추가
+            $li.appendChild(textContent);
+
+            // DocumentFragment태그에 $li 요소 노드를 자식 요소로 추가함.
+            df.appendChild($li);
+        });
+
+        $fruits.appendChild(df);
+        console.log($fruits.lastElementChild.textContent);
+        /*
+            DocumentFragment노드는 문서, 텍스트, 요소, 어트리뷰트 노드와 같은 객체의 일종이다.
+            부모노드가 없기에 기존 DOM과는 별도로 존재한다.
+            DocumentFragment를 이용하여 노드를 추가해도 DOM에 변경되지 않는다.
+            또한 DocumentFragment를 DOM에 추가하면 자신은 사라지고, 자식 노드만 DOM에 추가됨.
+        */
+
+        var $lt2 = document.createElement('li');
+        $lt2.textContent = 'Tomato';
+
+        /* Orange와 Banana 사이에 li요소 노드가 추가된다. */
+        // $fruits.insertBefore($lt2, $fruits.lastElementChild);
+        $fruits.insertBefore($lt2, $fruits.firstElementChild);
+
+        var $p = document.createElement('span');
+        var pTextContent = document.createTextNode('span tag');
+        $p.appendChild(pTextContent);
+        document.getElementsByTagName('body')[0].insertBefore($p, $fruits);
+    </script>
+</body>
+</html>

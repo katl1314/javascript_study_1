@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #fruits {
+            display : flex;
+            list-style-type: none;
+        }
+
+        #fruits > li {
+            width: 100px;
+            cursor : pointer
+        }
+
+        #fruits > li.active {
+            color : red;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul id="fruits">
+            <li id="apple" class="active">Apple</li>
+            <li id="banana">Banana</li>
+            <li id="orange">Orange</li>
+        </ul>
+    </nav>
+    <div>선택된 내비게이션 아이템 : <em class="msg">Apple</em></div>
+    <script>
+        const $fruits = document.querySelector('#fruits');
+        const $msg = document.querySelector('.msg');
+
+        // 사용자 클릭에 의해 선택된 내비게이션 아이템에 active클래스를 추가하고,
+        // 그 외의 item의 active클래스를 제거한다.
+
+        function activate({target}) {
+            [...document.querySelectorAll('ul#fruits > li')].forEach((element) => {
+                if (target === element) {
+                    element.classList.add('active');
+                    $msg.textContent = element.textContent;
+                } else {
+                    element.classList.contains('active') && element.classList.remove('active');
+                } 
+                /* element.classList.toggle('active', element === target);
+                $msg.textContent = target.textContent; */
+            })
+        }
+        // ui#fruits의 자식 노드 요소 li에 대해 click 이벤트 핸들러를 등록한다.
+        // 단점 li의 개수가 100개이면 이벤트 핸들러 등록을 100번 해줘야 함.
+        /* document.getElementById('apple').addEventListener('click', activate);
+        document.getElementById('banana').addEventListener('click', activate);
+        document.getElementById('orange').addEventListener('click', activate); */
+
+        // 즉 이벤트 위임을 통해서 간단하게 해결한다.
+        // 이벤트 위임은 여러 하위 요소를 이벤트 핸들링 등록하는 대신
+        // 상위 요소를 이벤트 핸들링 등록하는 방법을 말한다.
+        // 이벤트 전파를 통해 상위 dom요소, 이벤트 타깃에서도 이벤트를 캐치 할 수 있기 때문이다.
+        $fruits.addEventListener('click', activate);    // 상위 DOM요소에 이벤트를 위임한다.
+    </script>      
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <!--
+        Node.prototype.innerHTML은 XSS(크로스 사이트 스크립팅 공격)을 유발할 수 있기 때문에
+        사용에 조심해야 함.
+        사용자로부터 입력받은 데이터를 innerHTML을 이용하여 html으로 파싱한 다음 DOM에 반영할 때
+        그대로 파싱할 경우 해당 문제가 발생할 수 있기 때문이다.
+        => 자바스크립트에 악성코드가 포함되어있다면 그대로 실행할 가능성이 크기 때문이다.
+    -->
+    <div id="foo"></div>
+    <ul id="fruits">
+        <li class="apple">Apple</li>
+    </ul>
+    <div id="foo2"> text </div>
+    <script>
+        localStorage.setItem('myKey', '{"name" : "최민혁", "age" : 26}');
+        const myKeyObj = localStorage.getItem('myKey');
+        console.log(JSON.parse(myKeyObj));
+
+        var $foo = document.getElementById('foo');
+        console.log($foo);
+        // $foo.innerHTML = '<img src=\'asd.png\' onerror=\'console.log(document.cookie, window.localStorage)\'>'; 
+        $foo.innerHTML = '최민혁';
+        console.log(document.getElementById('foo').firstChild.nodeValue);
+
+        var $fruits = document.getElementById('fruits');
+
+        var fruitsMap = new Map();
+        fruitsMap.set('orange', 'Orange');
+        fruitsMap.set('banana', 'Banana');
+        fruitsMap.set('potato', 'Potato');
+
+        /*
+            ul#fruits의 자식 노드 추가
+            ul#fruits의 자식 노드 li.apple의 다음 요소로 추가됨. 중간 중간에 요소 추가가 불가능.
+            ul#fruits의 자식 노드를 모두 삭제한 다음 자식 노드를 다시 생성한 다음 자식 요소로 추가함.
+        */
+        for (const [className, nodeValue] of fruitsMap) {
+            $fruits.innerHTML += `<li class='${className}'>${nodeValue}</li>`;
+            // $fruits.innerHTML = $fruits.innerHTML + `<li class='${className}'>${nodeValue}</li>`;
+        }
+
+        /*
+            Element.prototype.insertAdjacentHTML 메서드
+            innerHTML메서드와 같이 기존 요소를 삭제하지 않고 원하는 위치에 새 요소를 추가하는 메서드이다.
+            메서드 인자의 경우 2개를 입력받으며
+            1. 추가할 노드 위치 : beforebegin, beforeend, afterbegin, afterend 총 4개가 지원됨.
+            2. 추가할 노드 요소 : HTML태그, TEXT태그
+
+            {beforebegin}<div>{afterbegin}HTML{beforebegin}</div>{afterend}
+
+            innerHTML와 마찬가지로 전달받은 문자열을 html으로 파싱하여 DOM에 추가하는 방식이다.
+            다만 innerHTML와 같이 모든 자식 노드를 삭제하지 않고 지정된 위치에 요소를 추가하는 방식.
+        */
+
+        var $foo2 = document.getElementById('foo2');
+        $foo2.insertAdjacentHTML('beforebegin', '<span>beforebegin</span>');    /* div#foo2요소 앞에 위치함 */
+        $foo2.insertAdjacentHTML('afterbegin', '<p>afterbegin</p>');            /* div#foo2요소의 첫번째 자식노드로 추가함. */
+        $foo2.insertAdjacentHTML('beforeend', '<p>beforeend</p>');              /* div#foo2요소의 마지막 자식노드로 추가함. */
+        $foo2.insertAdjacentHTML('afterend', '<p>afterend</p>');                /* div#foo2요소 뒤에 위치함.*/
+
+        // Node.prototype.insertAdjacentHTML
+    </script>    
+</body>
+</html>

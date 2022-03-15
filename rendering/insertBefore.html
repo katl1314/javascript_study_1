@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="fruits">
+        <li>Apple</li>
+        <!-- <li>Banana</li> -->
+        <!-- <li>Orange</li> -->
+    </ul>
+    <script>
+        /*
+
+            Node.prototype.insertBefore(createNode : Node, child : Node);
+            노드를 두번째 인자로 전달한 자식 요소 앞에 추가할 수 있으며,
+            appendChild를 이용하여 노드를 DOM에 추가했을 때, insertBefore를 이용하여 추가한 노드의 위치
+            를 변경할 수 있음.
+        */
+        var $fruits = document.getElementById('fruits');
+
+        var $apple = $fruits.firstElementChild;
+
+        // $apple 요소를 얕은 복사하며 사본을 생성한다. => 텍스트 노드를 복사하지 않음.
+        var $shadowElement = $apple.cloneNode();
+
+        var bananaTextNode = document.createTextNode('Banana');
+        $shadowElement.appendChild(bananaTextNode);
+
+        $fruits.appendChild($shadowElement);
+        
+        /* ul#fruits의 자식 노드를 포함하여 복사한 후 사본을 생성한다. */
+        var $deepCopiedElement = $fruits.cloneNode(true);
+        console.log($deepCopiedElement);
+
+        $fruits.appendChild($deepCopiedElement);
+        /* var $liGrape = document.createElement('li');
+
+        var $textNodeGrape = document.createTextNode('Grape'); */
+
+        // $liGrape.appendChild($textNodeGrape);
+
+        /* li 요소 노드를 마지막 위치에 추가한다. */
+        // $fruits.appendChild($liGrape);
+
+        // [$first, $second, ] = $fruits.children;
+        // console.log($first, $second);
+
+        /* 마지막에 추가한 요소 노드의 위치를 첫번째 노드 앞으로 변경한다. */
+        // $fruits.insertBefore($liGrape, $fruits.firstElementChild);
+
+        /* 
+            노드 복사
+            Node.prototype.cloneNode (deepNode? : boolean): Node
+            노드의 복사본을 생성 후 반환한다.
+            함수의 인자는 Boolean으로 받으며 자손노드까지 복사 여부를 확인한다.
+            true : 자손 노드까지 복사됨.
+            false(default) : 자손 노드는 복사하지 않는다.(텍스트 노드 미포함)
+        */
+
+        // console.log('true ----- 자손 노드까지 복사됨. ', $liGrape.cloneNode(true));
+        // console.log('false(default) ----- 자손 노드는 복사하지 않음 ', $liGrape.cloneNode());
+    </script>    
+</body>
+</html>

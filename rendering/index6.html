@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script>
+        window.onload = function() {
+            const fruits = document.getElementById('fruits');
+            /* const {children, childNodes} = fruits;
+            [...childNodes].forEach(element => {
+                fruits.removeChild(element);
+            });
+            console.log(childNodes); */
+            const apple = fruits.getElementsByClassName('apple');
+            console.log(apple[0].parentNode, apple[0].parentElement);   /* 부모 Element를 가리킴 */
+            console.log(apple instanceof HTMLCollection);
+            const apple2 = fruits.querySelector('.apple');
+            /*
+                Node.nextElementSibling과 Node.nextSibling은 결과가 다르다.
+            */
+            console.log(apple2.nextElementSibling);     /* banana를 가리킴 */
+            console.log(apple2.nextSibling);            /* 공백 문자 text를 가리킴 */
+            
+            const banana = apple2.nextElementSibling;
+            console.log(banana.previousElementSibling)  /* apple을 가리킴 */
+            console.log(banana.previousSibling);        /* 공백 문자 text를 가리킴 */
+
+            const orange = banana.nextElementSibling;
+            console.log(orange);
+            console.log(orange.previousElementSibling);
+            console.log(orange.nextElementSibling);     /* ul#fruits의 마지막 노드이면 null */
+
+            console.log(apple2 instanceof Node)
+            /*
+                노드 탐색 프로퍼티는 접근자 프로퍼티임. 
+                단 setter는 존재하지 않고 getter만 존재함.
+
+                Element는 텍스트 노드를 제외한 태그 노드를 의미
+                Node는 텍스트 노드와 태그 노드 모두 포함.
+
+                공백 텍스트 노드 : HTML요소 사이의 스페이스, 탭, 개행등 공백문자는 텍스트 노드를 생성.
+                개행 또는 스페이스, 탭을 적절히 사용하지 않으면 가독성이 떨어지기 때문에 비추천
+
+                즉 Node.prototype.childNodes는 태그 노드와 텍스트 노드를 포함하여 반환함. (Node)
+                반대로 Node.prototype.children은 텍스트 노드를 제외한 태그 노드만 반환함. (Element)
+            */
+        }
+    </script>
+</head>
+<body>
+    <ul id="fruits">
+        <li class="apple">Apple</li>
+        <li class="banana">Banana</li>
+        <li class="orange">Orange</li>
+    </ul>    
+</body>
+</html>

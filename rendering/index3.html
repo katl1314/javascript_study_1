@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <!--
+        class를 이용한 요소 노드 반환
+    -->    
+    <ul id="fruit">
+        <li class="apple">Apple</li>
+        <li class="banana">Banana</li>
+        <li class="orange">Orange</li>
+    </ul>
+    <ul>
+        <li class="apple">Apple2</li>
+    </ul>
+    <!--
+        DOM객체 내 class를 이용한 요소 노드를 가져오기 위해서는 다음과 같은 메서드를 이용한다.
+        document.getElementsByClassName(className);
+    -->
+    <script>
+        const classElement = document.getElementsByClassName('apple');
+        // document.getElementsByClassName의 반환값은 이터러블 객체이다.        
+        for (const element of classElement) {
+            console.log(element);
+            element.style.color = 'red';
+        }
+
+        const ulFruitElement = document.getElementById('fruit');
+        const fruitInApple = ulFruitElement.getElementsByClassName('apple');
+        console.log(fruitInApple);
+
+        for (const element of fruitInApple) {
+            console.log(element);
+            element.style.color = 'blue';
+        }
+    </script>
+</body>
+</html>

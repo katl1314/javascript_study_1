@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <!--
+        브라우저는 특정 사건이 발생하면 이벤트를 호출한다.
+        ex) 키 입력, 마우스 이동, ...
+        이벤트가 발생할때 호출하는 함수를 이벤트 핸들러 
+        이벤트 핸들러의 호출을 위임하는 것을 이벤트 핸들러 등록이라 한다.
+    --> 
+    <button>Click me!</button>   
+    <script>
+        // 사용자가 버튼을 클릭하면 이벤트 핸들러를 호출하도록 작업
+        var buttonEl = document.querySelector('button');
+        /* buttonEl.onclick = function() {
+            // 버튼 클릭이 발생하면 실행하는 함수
+            alert('click me~');
+        } */
+        // 위 사례는 button이라는 요소에 onclick어트리뷰트에 함수를 할당하였다.
+        // Window, Element, HTMLElement타입의 객체에는 다양한 이벤트 핸들러 프로퍼티가 존재한다.
+
+        /*
+            click : 클릭 이벤트
+            dblclick : 더블 클릭 이벤트
+            mousedown : 마우스 버튼 눌렀을 때
+            mouseup : 마우스 버튼을 땠을 때
+            mousemove : 마우스 포인터 이동시
+            mouseover : 마우스 커서를 HTML요소에 이동시(이벤트 버블링 발생)
+            mouseout : 마우스 커서가 HTML요소에 벗어났을때(이벤트 버블링 발생)
+            mouseenter : 마우스 커서를 HTML요소에 이동시(이벤트 버블링이 동작하지 않음)
+            mouseleave : 마우스 커서가 HTML요소에 벗어낫을때(이벤트 버블링이 동작하지 않음) 
+
+            DOMContentLoded : DOM 생성이 완료되었을 때
+            resize : 브라우저 사이즈가 변경되었을 때
+            scroll : HTML요소를 스크롤할 때 연속으로 발생
+
+            load = DOMContentLoaded이후 모든 리소스를 불러왔을 때
+            unload 리소스 언로드 => 새로운 페이지 요청시
+        */
+    </script>
+</body>
+</html>

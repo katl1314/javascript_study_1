@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        ul#fruits {
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <a href="https://gall.dcinside.com/mgallery/board/lists?id=war">DCINSIDE으로 이동</a>
+    <ul id="fruits">
+        <li id="apple">Apple</li>
+        <li id="banana">Banana</li>
+        <li id="orange">Orange</li>
+    </ul>
+    <script>
+
+        // 이벤트 동작 중단 event.preventDefault();
+        document.querySelector('a').onclick = function(e) {
+            e.preventDefault(); // 이벤트 동작 중단.
+            // return false;    // 이벤트 동작 중단.
+            return true;
+        }
+
+        // 이벤트 전파 방지 event.stopPropagation();
+        // li를 제외한 나머지 영역을 클릭해야 동작할듯...
+        document.querySelector('#fruits').addEventListener('click', function(event) {
+            // target.matches(selector) : 해당 요소가 selector인지 체크 후 boolean으로 반환
+            console.log('상위 DOM 요소 ----- ul#fruits', event, this);
+        });
+
+        document.querySelector('#apple').addEventListener('click', function(event) {
+            console.log(event.currentTarget, this);
+           /*  event.stopPropagation() */;    // 상위 DOM요소로 이벤트 전파를 중단한다.
+        });
+
+        document.querySelector('#banana').addEventListener('click', function(event) {
+            console.log(event);
+           /*  event.stopPropagation() */;    // 상위 DOM요소로 이벤트 전파를 중단한다.
+        });
+
+        document.querySelector('#orange').addEventListener('click', function(event) {
+            console.log(event);
+           /*  event.stopPropagation() */;    // 상위 DOM요소로 이벤트 전파를 중단한다.
+        });
+    </script>
+</body>
+</html>

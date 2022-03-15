@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./css/style.css">
+    <!--
+        DOM파싱 도중 script와 link태그를 만나게 되면 HTML파싱이 중단되어 DOM 생성이 중단됨.
+        해당 문제를 해결하기 위해 async와 defer가 HTML5부터 지원된다.
+        asnyc, defer는 src 어트리뷰트를 이용하여 외부 js를 불러올때 사용함.
+        인라인 스크립트에서는 사용 불가능
+
+        ex) 허용되는 경우
+        <script [async | defer] src="main.js"></script>
+        
+            허용하지 않는 경우
+        <script>
+            console.log(1111);
+        </script>    
+    
+        async와 defer는 외부 js를 비동기 적으로 로드하기 위함임.
+    -->
+    <script async src="./js/index.js"></script>
+    <!--
+        async 어트리뷰트 (html파싱이 중단되고, jAVASCRIPT실행)
+        HTML파싱과 외부 자바스크립트 파일의 로드가 비동기적으로 동시에 진행한다.
+        자바스크립트 파싱과 실행은 자바스크립트 파일의 로드가 끝난 시점에 진행함. 
+        이때 HTML파싱은 중단
+
+        defer 어트리퓨터 (dom이 생성 완료 시점에 실행)
+        HTML파싱이 진행하는 도중에 Javascript 로드를 비동기적으로 동시에 진행하며,
+        DOMContentLoaded(DOM이 생성되는 시점)이벤트가 발생하는 시점에 Javascript를 실행한다.
+    -->
+    <script defer src="./js/index2.js"></script>
+    <!--
+        DOM(Document Object Model)은 HTML을 파싱한 결과물, html을 한줄씩 파싱하여 DOM을 생성한다.
+        중간중간에 script, link를 만나면 HTML 파싱이 중단되고, 결국 DOM생성이 중단됨.
+        CSS가 파싱이 완료되면 html파싱이 중단된 시점부터 다시 파싱을 진행한다.
+
+        렌더링 엔진은 HTML을 파싱한 DOM, CSS를 파싱한 CSSOM을 이용하여 렌더링을 위해 렌더 트리로 결합,
+        렌더 트리는 렌더링을 위한 자료구조
+        렌더 트리는 화면에 렌더링되는 노드만 구성됨.
+
+        CSSOM은 CSS의 상속을 반영하여 생성함.
+        예를들어 body 노드에 font-size속성을, ul에 list-style-type을 사용할 때 모든 li요소에 상속된다.
+        즉 상속 관계가 반영되어 CSSOM을 생성한다.  
+        
+        DOM은 html문서의 구조, 제어 할 수 있는 API, 즉 프로퍼티와 메서드를 제공하는 자료구조
+    -->
+    <title>Document</title>
+</head>
+<body>
+    <!-- <ul>
+        <li id="apple">Apple</li>
+        <li id="orange">Orange</li>
+        <li id="banana">Banana</li>
+    </ul> -->
+    <input type="text" id="a">
+    <script>
+        // DOM API이용하여 Style적용
+        // HTML 요소를 먼저 파싱한 다음에 DOM이 생성되기 때문에 해당 시점에서
+        // DOM API를 사용한다.
+        var $input = document.querySelector('input');
+        /* 프로토타입 체이닝*/
+        console.log(Object.getPrototypeOf($input) === HTMLInputElement.prototype);
+        console.log(Object.getPrototypeOf(HTMLInputElement.prototype) === HTMLElement.prototype);
+        console.log(Object.getPrototypeOf(HTMLElement.prototype) === Element.prototype);
+        console.log(Object.getPrototypeOf(Element.prototype) === Node.prototype);
+        console.log(Object.getPrototypeOf(Node.prototype) === EventTarget.prototype);
+        /**
+            Object : 객체
+            EventTarget : 이벤트를 발생시키는 객체
+            Node : 트리 자료구조의 노드 객체
+            Element : 브라우저 렌더링할 수 있는 요소(html, svg, ...)
+            HTMLElement : 웹 문서 중 HTML요소를 표현하는 객체
+            HTMLInputElement : HTML요소 중 input을 표현하는 객체
+        */
+    </script>
+</body> 
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <label>User name<input type="text"></label>
+    <em id="msg"></em>
+    <script>
+        const MAX_USE_NAME_LENGTH = 5;
+        const $input = document.querySelector('input');
+        const $msg = document.querySelector('#msg');
+
+        // 이벤트 핸들러를 반환하는 함수
+        function checkUserNameLength(min) {
+            return function(e) {
+                $msg.textContent = $input.value.length < min ? `이름은 ${min}자 이상 입력하세요.` : '';
+            }
+        }
+        /* const checkUserNameLength = min => function(e) {
+            console.log('checkUserNameLength ------ ', min)
+            $msg.textContent = $input.value.length < min ? `이름은 ${min}자 이상 입력하세요.` : '';
+        } */
+
+        // $input.addEventListener('blur', checkUserNameLength.bind(this, MAX_USE_NAME_LENGTH));
+        /* $input.onblur = () => {
+            console.log('onblur ------ ', MAX_USE_NAME_LENGTH);
+            // 이벤트 핸들러 내부에서 함수에 인수를 전달한다.
+            checkUserNameLength(MAX_USE_NAME_LENGTH);
+        } */
+
+        /*
+            함수에 인수를 전달하기 위해서는 함수를 전달할때 인수를 전달해야 한다.
+            이벤트 어트리뷰트 방식은 함수 호출문에 인자를 전달 할 수 있음.
+            이벤트 핸들러 프로퍼티 방식과 addEventListener는 이벤트 핸들러를 브라우저가 호출하기 때문에
+            함수 자체를 등록해야함.
+            다만 우회 방법을 이용하여 이벤트 핸들러에 인수를 전달 할 수 있다.
+        */
+
+        $input.onblur = checkUserNameLength(MAX_USE_NAME_LENGTH);   // 이벤트 핸들러를 반환한다.
+    </script>
+</body>
+</html>

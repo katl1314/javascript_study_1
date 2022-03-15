@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .red {
+            color : red
+        }
+        .blue {
+            color : blue
+        }
+    </style>
+</head>
+<body>
+    <ul id="fruit">
+        <li class="red">Apple</li>
+        <li class="red">Banana</li>
+        <li class="red">Orange</li>
+    </ul>
+    <script>
+        /**
+            document.getElementsByClassName메서드의 반환값 타입인 HTMLCollection은 상태변화가 일어나면
+            자동으로 반영하기 때문에 살아있는 객체라고 하기도 한다.
+        */
+        /* const $elem = document.getElementsByClassName('red');
+        const elements = [...$elem];
+        elements.map((element) => element.className = 'blue');
+        console.log($elem); */
+        /* while ($elem.length) {
+            const index = $elem.length - 1;
+            $elem[index].className = 'blue2';
+        } */
+
+        const rootEl = document.getElementById('fruit');
+        const { childNodes } = rootEl;
+        console.log(childNodes);
+
+        /*
+            childrNodes의 프로퍼티가 반환하는 NodeList객체는 실시간으로 상태 변경을 반영함.
+        */
+        console.log(childNodes instanceof NodeList)
+
+        for (var i = 0; i < childNodes.length; i++) {
+            rootEl.removeChild(childNodes[i]);
+        }
+
+        console.log(rootEl);    // 예상과 다르게 rootEl의 모든 자식 요소가 삭제되지 않는다.
+
+        /**
+            HTMLCollection 또는 NodeList를 사용할 때 문제가 발생할 수 있기 때문에 배열로 변환하여 사용하는 것을
+            권장한다.
+        */
+    </script>
+</body>
+</html>

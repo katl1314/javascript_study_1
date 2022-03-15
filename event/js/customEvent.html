@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    
+    <!--
+
+        개발자 의도로 만들어진 이벤트를 커스텀 이벤트라고 한다.
+        이벤트 생성자 함수로 첫번째 인자는, 이벤트 타입을 나타내는 문자열을 입력받는다.
+        이벤트 타입은 기존 이벤트 타입을 사용할 수 있고, 임의의 문자열을 사용하여 새로운 이벤트 타입을
+        지정한다.
+
+        일반적으로 CustomEvent이벤트 생성자 함수를 사용한다.
+        이벤트 객체에 두번째 인자로 전달항 정보를 추가/변경한다.
+        => new CustomEvent(eventType, eventObj);
+    -->
+    <button id="button">Click Me~</button>
+    <script>
+        /*
+            Event.isTrusted : 사용자의 행위에 이벤트가 발생하면 true, 스크립트, dispatchEvent로 이벤트를 발생하면
+            false이다. => 사용자 행위로 이벤트를 발생하는지 검사한다. boolean타이으로 반환
+        */
+        // 커스텀 이벤트 생성 new CustomEvent
+        const keyboardEvent = new KeyboardEvent('keyup');   // KeyboardEvent생성자 함수로 keyup이벤트 타입의 커스텀 이벤트 객체 생성
+        console.log('keyboardEvent', keyboardEvent);
+
+        const customEvent = new CustomEvent('foo', {detail: {message : 'Hello'} });     // CustomEvent 생성자함수로 custom이벤트 객체 생성
+        console.log('customEvent', customEvent);
+
+        // 커스텀 이벤트의 경우 preventDefault메서드로 이벤트를 중단할 수 없고, 버블링을 사용할 수 없다.
+        // bubbles와 cancelable 프로퍼티가 기본적으로 false임.
+        
+        // 커스텀 이벤트 객체의 만약 bubbles와 cancelable 프로퍼티가 true으로 설정하려면 두번째 인수로 option을 지정
+        // options을 통해 이벤트 객체의 프로퍼티값을 변경할 수 있다.
+        // 커스텀 이벤트는 사용자 행위에 의해 발생하지 않기 때문에 isTrusted가 false이다.
+        const customEvent2 = new CustomEvent('foo2', {
+            bubbles : true,
+            cancelable : true
+        });
+        console.log(customEvent2);
+
+        const mouseEvent = new MouseEvent('mouseover', {
+            bubbles : true,
+            cancelable : true,
+            clientX : 50,
+            clientY : 50
+        });
+        console.log(mouseEvent)
+
+        // EvnetTarget.dispatchEvent : 이벤트를 강제 발생
+        var $button = document.querySelector('#button');
+        // button요소에 커스텀 이벤트 핸들러 등록
+        // 커스텀 이벤트 헨들러는 addEventListener로 등록해야한다.
+        $button.addEventListener('foo', function(e) {
+            var { message } = e.detail;
+            console.log('Custom Event 발생', e, message);
+        });
+
+        $button.onclick = function() {
+            // 커스텀 이벤트 강제 발생. EventTarget.dispatch(eventObj);
+            this.dispatchEvent(customEvent);
+        }
+    </script>    
+</body>
+</html>

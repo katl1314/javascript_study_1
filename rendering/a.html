@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .apple {
+            color : red;
+        }
+        .orange { 
+            color : orange;
+        }
+        .banana {
+            color : yellow;
+        }
+    </style>
+</head>
+<body>
+    <div id="foo">Hello <span>World!</span></div>
+    <ul id="fruits"></ul>
+    <script>
+        /* div#foo는 텍스트 노드가 아니기 때문에 null이 반환된다. */
+        console.log(document.getElementById('foo').nodeValue);
+
+        /* div#foo의 firstChild는 텍스트 노드를 반환하기 때문에 'Hello'가 반환됨. */
+        console.log(document.getElementById('foo').firstChild.nodeValue);
+
+        console.log(document.getElementById('foo').firstElementChild.firstChild.nodeValue);
+
+        /* div#foo의 태그 노드와 텍스트 노드가 모두 반환하기 때문에 'Hello World!'가 반환됨 */
+        console.log(document.getElementById('foo').textContent);
+
+        /*
+            Node.prototype.nodeValue를 사용하기 보단, Node.prototype.textContent를 사용하도록 하자.
+            #foo 요소 노드의 모든 자식 노드가 제거되고 할당된 문자열로 변경된다.
+            이때 html태그로 파싱하지 않는다.
+
+            반대로 Node.prototype.innerHTML또한 setter, getter 접근자 프로퍼티로
+            #foo 요소의 모든 자식 노드를 문자열로 반환하고, 반대로 전달한 문자열을 HTML태그로 파싱하여
+            DOM에 반영한다.
+        */
+
+        // div#foo의 텍스트를 다음과 같은 문자열로 변경함.
+        // document.getElementById('foo').textContent = '<h1>HTML <span>Javascript</span></h1>';
+
+        console.log(document.getElementById('foo').innerHTML);  // div#foo의 자식 요소노드를 문자열로 반환
+
+        document.getElementById('foo').innerHTML = '<h1>HTML <span>Javascript</span></h1>';
+
+        var $fruits = document.getElementById('fruits');
+
+        $fruits.innerHTML = '<li class=\'apple\'>사과</li>';
+        $fruits.innerHTML += '<li class=\'orange\'>오랜지</li>';
+        $fruits.innerHTML += '<li class=\'banana\'>바나나</li>';
+        
+    </script>
+</body>
+</html>

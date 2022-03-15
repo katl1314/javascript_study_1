@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <!--
+        스타일
+        Element.prototype.style프로퍼티는 setter, getter로 구성된 접근자 프로퍼티이다.
+        요소 노드의 인라인 스타일을 취득, 추가하거나 변경한다.
+    --> 
+    <div style="color:red">Hello World</div>   
+    <script>
+        var $div = document.querySelector('div');
+        console.log($div);
+
+        // 인라인 스타일 변경
+        $div.style.color = 'blue';
+
+        // 인라인 스타일 추가
+        $div.style.fontSize = '30px';
+        $div.style.fontWeight = '700';
+        $div.style.backgroundColor = 'red';
+
+        // 인라인 스타일 취득
+        console.log('$div.style.color ---------------', $div.style.color);
+        console.log('$div.style.fontSize ------------', $div.style.fontSize);
+        console.log('$div.style.fontWeight ----------', $div.style.fontWeight);
+        console.log('$div.style.backgroundColor -----', $div.style.backgroundColor);
+
+        console.log($div.style);    // CSSStyleDeclaration객체를 반환. => css에 대응하는 프로퍼티를 가짐.
+        // CSSStyleDeclaration의 프로퍼티가 추가, 변경, 삭제가 되면 HTML요소에 반영한다.
+    </script>
+</body>
+</html>

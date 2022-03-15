@@ -1,0 +1,37 @@
+[
+    {
+        "name" : "LEE",
+        "age" : 20,
+        "sex" : "M"
+    },
+    {
+        "name" : "CHOI",
+        "age" : 30,
+        "sex" : "M"
+    },
+    {
+        "name" : "KIM",
+        "age" : 21,
+        "sex" : "M"
+    },
+    {
+        "name" : "GUM",
+        "age" : 24,
+        "sex" : "M"
+    },
+    {
+        "name" : "KANG",
+        "age" : 31,
+        "sex" : "M"
+    },
+    {
+        "name" : "PARK",
+        "age" : 33,
+        "sex" : "M"
+    },
+    {
+        "name" : "YU",
+        "age" : 28,
+        "sex" : "M"
+    }
+]

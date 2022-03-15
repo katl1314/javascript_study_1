@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .box {
+            width : 100px;
+            height : 100px;
+            border : 1px solid black;
+        }
+        .red {
+            color : red;
+        }
+        .blue {
+            color : blue;
+        }
+    </style>
+</head>
+<body>
+    <div class="box red">Hello World</div>
+    <script>
+        var $box = document.querySelector('div.box');
+        /*
+            Element.prototype.className, Element.prototype.classList
+            위 두 프로퍼티는 setter, getter기능이 모두 존재하는 접근자 프로퍼티이다.
+            Element.prototype.className, clasList를 이용하여 클래스 어트리뷰트를 제어할 수 있다.
+
+            Element.prototype.className : class 어트리뷰트 정보를 문자열로 반환
+            Element.prototype.classList : class 어트리뷰트의 정보를 DOMTokenList객체로 반환(유사 배열)
+        */
+        console.log($box.className, $box.classList);
+
+        /*
+            DOMTokenList객체는 class  어트리뷰트 정보가 담긴 컬렉션 객체로서, 유사 배열 객체이며, 이터러블이다.
+            DOMTokenList에는 다음과 같은 메서드를 제공한다.
+
+            add(...className)
+             - add메서드는 인수로 전달한 1개 이상의 문자열을 클래스 어트리퓨트 값으로 추가한다.
+
+            remove(...className)
+             - remove메서드는 인수로 전달한 문자열과 클래스 어트리뷰트 값과 비교하여 일치하면 어트리뷰트에서 삭제한다.
+
+            item(index)
+             - item메서드는 인덱스를 인수로 전달하여 해당 위치의 클래스 어트리뷰트 값을 반환한다.
+            
+            contains(className)
+             - contains메서드는 클래스 어트리뷰트 값에 해당하는 인수로 전달하는 문자열이 있는지 검사한다.
+            
+            replace(oldClassName, newClassName)
+             - replace메서드는 클래스 어트리뷰트에 첫번째 인수가 존재하면 두번째 인수로 전달하는 클래스로 교체한다.
+
+            toggle(className[,force])
+             - toggle메서드는 class어트리뷰트에 인수로 전달하는 문자열과 일치하는 클래스가 존재하면 제거, 존재하지 않으면 추가한다.
+        */
+
+        // 1. add(...className) : 클래스 어트리뷰트 값을 추가한다.
+
+        $box.classList.add('one', 'two');
+        console.log('after add', $box.classList);
+        
+        // 2. remove(...className) : 클래스 어트리뷰트 값을 제거한다.
+        $box.classList.remove('one', 'two');
+        console.log('after remove', $box.classList);
+
+        // 3. item(index) : 해당 인덱스의 클래스 어트리뷰트 값을 반환한다.
+        console.log('$box.classList.item(0)', $box.classList.item(0));
+
+        // 4. contains(className) : 클래스 어트리뷰트 값으로 함수 인자로 전달한 문자열이 있는지 검사한다. =>  불리언 값으로 반환한다.
+        console.log('$box.classList.contains(\'red\')', $box.classList.contains('red'));
+
+        // 5. replace(oldClassNmae, newClassName) : 기존 클래스 어트리뷰트 값을 새 클래스 어트리뷰트 값으로 변경한다.
+        $box.classList.replace('red', 'blue');
+        console.log('after replace', $box.classList);
+
+        // 6. toggle(className[, force]) : 클래스 어트리뷰트 값으로 존재하면 해당 어트리뷰트 값을 제거, 클래스 어트리뷰트 값이 존재하지 않으면 새로 추가한다.
+        $box.classList.toggle('blue');
+    </script>
+</body>
+</html>
