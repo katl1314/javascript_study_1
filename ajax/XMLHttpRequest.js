@@ -39,7 +39,7 @@ import { XMLHttpRequest } from "xmlhttprequest";
 
 // XMLHttpRequest 객체 생성
 const xhr = new XMLHttpRequest();
-const url = 'https://api.corona-19.kr/korea/beta/?serviceKey=Fn5kjtwmypLOQ19SZN2uEvCARP47qrHGs';
+const url = 'https://api.corona-19.kr/korea/beta/';
 
 // HTTP 요청 초기화
 // xhr.open(method, url, async);
